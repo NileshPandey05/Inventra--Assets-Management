@@ -1,7 +1,5 @@
 "use client";
-
 import { motion } from "motion/react";
-import { FaGoogle } from "react-icons/fa";
 import Navbar from "./defaultnav";
 
 export function HeroSectionOne() {

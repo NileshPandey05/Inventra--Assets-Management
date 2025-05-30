@@ -17,7 +17,7 @@ export default function SignupFormDemo() {
   return (
     <div className="shadow-input mx-auto w-full h-[450px] mt-16 max-w-md    rounded-none bg-white p-4 md:rounded-2xl md:p-8 dark:bg-black">
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
-        Happy To See You Back Akash !!
+        Happy To See You Back Username !!
       </h2>
       <form className="my-8" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
