@@ -1,40 +1,58 @@
+"use client";
+import React from "react";
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
+import { useSession, signIn, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
+  const { status } = useSession();
+  const router = useRouter();
+
+  // Redirect to home if signed in
+  React.useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
+
   return (
-    <nav className="flex w-full items-center justify-between border-t border-b border-neutral-200 px-4 py-4 dark:border-neutral-800">
-      <div className=" absolute flex items-center gap-2 ml-5">
-        
-        <img
-          src="/assest/inventralogo.jpg"
-          alt="Inventra Logo"
-          className=" h-10 object-cover rounded-full   w-10"
-        />
-
-        <div className=" flex flex-col ">
-          <h1 className="text-base font-bold md:text-2xl">Inventra</h1>
-          <h2 className=" text-sm ">The Assest Manager!!</h2>
+    <nav className="w-full border-t border-b border-neutral-200 dark:border-neutral-800 px-4 py-3 bg-white dark:bg-black">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        {/* Logo and Title */}
+        <div className="flex items-center gap-3">
+          <img
+            src="/assest/inventralogo.jpg"
+            alt="Inventra Logo"
+            className="h-10 w-10 object-cover rounded-full"
+          />
+          <div className="flex flex-col">
+            <h1 className="text-lg md:text-2xl font-bold">Inventra</h1>
+            <h2 className="text-xs md:text-sm text-neutral-600 dark:text-neutral-300">
+              The Asset Manager!!
+            </h2>
+          </div>
         </div>
-      </div>
 
-      <div className="ml-[900px] mt-1 ">
-        {" "}
-        <ModeToggle />
-      </div>
-
-      <div className=" flex justify-end gap-3">
-        <Link href="/api/auth/signup">
-          <button className="w-24 transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 md:w-32 dark:bg-white dark:text-black dark:hover:bg-gray-200">
-            Signup
-          </button>
-        </Link>
-
-        <Link href="api/auth/signin">
-          <button className="w-24 transform rounded-lg bg-black px-6 py-2 font-medium text-white transition-all duration-300 hover:-translate-y-0.5 hover:bg-gray-800 md:w-32 dark:bg-white dark:text-black dark:hover:bg-gray-200">
-            Login
-          </button>
-        </Link>
+        {/* Right Side: Mode Toggle & Auth Button */}
+        <div className="flex items-center gap-4">
+          <ModeToggle />
+          {status === "authenticated" ? (
+            <button
+              className="w-20 md:w-28 rounded-lg bg-black px-4 py-2 font-medium text-white transition hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
+              onClick={() => signOut({ callbackUrl: "/" })}
+            >
+              Logout
+            </button>
+          ) : (
+            <button
+              className="w-20 md:w-28 rounded-lg bg-black px-4 py-2 font-medium text-white transition hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200"
+              onClick={() => signIn()}
+            >
+              Signin
+            </button>
+          )}
+        </div>
       </div>
     </nav>
   );
