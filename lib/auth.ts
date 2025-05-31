@@ -1,5 +1,8 @@
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import prisma from "@/utils";
+import  bcrypt from "bcryptjs"
+// import Signup from "@/app/signup/page";
 
 export const authOption = {
     providers: [
@@ -7,6 +10,8 @@ export const authOption = {
         clientId: process.env.GOOGLE_CLIENT_ID!,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       }),
+
+      
       CredentialsProvider({
         name: "Credentials",
         credentials: {
@@ -48,7 +53,9 @@ export const authOption = {
     ],
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
-      signIn: "/signin", // ✅ custom page here
+      signIn: "/signin", 
+      signUp:"/signup"
+      
     },
     callbacks: {
       async session({ session, token }: any) {
