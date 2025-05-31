@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export function HeroSectionOne() {
   return (
-    <div className="relative flex max-w-7xl flex-col items-center justify-center">
+    <div className="relative flex w-full flex-col items-center justify-center">
       <Navbar />
       <div className="absolute inset-y-0 left-0 h-full w-px bg-neutral-200/80 dark:bg-neutral-800/80">
         <div className="absolute top-0 h-40 w-px bg-gradient-to-b from-transparent via-blue-500 to-transparent" />
